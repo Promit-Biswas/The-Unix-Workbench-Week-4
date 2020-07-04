@@ -1,22 +1,29 @@
 #!/usr/bin/env bash
+# File: guessinggame.sh
 
-function guess(){
-    true_ans=$(ls -l |grep "^-"|wc -l)
-    while true;
-    do
-        echo "pleas enter your guess"
-        read  number
-        if [ $number -lt $true_ans ]
-        then
-            echo "your guess is Less then the true number"
-        elif [ $number -gt $true_ans ]
-        then
-            echo "your guess is Greater then the true number"
-        else
-            echo " congratulation,you are right!"
-        break;
-        fi
-    done
+dirarray=($(ls -d */))
+dircount=${#dirarray[@]}
+dirguess=0
+
+function checkguess {
+    # Usage of an if statement
+    if [[ $1 -lt $2 ]]
+    then
+    echo "echo Too low"
+    elif [[ $1 -gt $2 ]]
+    then
+    echo "echo Too high"
+    fi
 }
-echo "guess the files number in the current directory!"
-guess
+
+# Usage of a loop
+while [ $dirguess -ne $dircount ]
+do
+echo "Guess the number of directories!"
+# Collecting user response
+read dirguess
+
+$(checkguess $dirguess $dircount)
+
+done
+echo "You got it right!  Congrats!!"
